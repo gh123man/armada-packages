@@ -28,11 +28,13 @@ image pkg: (artifacts pkg)
     set -euo pipefail
     bash scripts/stage.sh {{pkg}}
     # mesa-android cross-builds on x86_64, so label its carrier for the target.
-    arch_flag=()
     if [ "{{pkg}}" = "mesa-android" ]; then
-        arch_flag=(--arch arm64)
+        podman build --arch arm64 -f oci/Containerfile -t "{{registry}}/{{pkg}}:latest" .
+    else
+        # Avoid expanding an empty array under `set -u`; macOS Bash 3.2 treats
+        # that as an unbound variable.
+        podman build -f oci/Containerfile -t "{{registry}}/{{pkg}}:latest" .
     fi
-    buildah build "${arch_flag[@]}" -f oci/Containerfile -t "{{registry}}/{{pkg}}:latest" .
     echo "==> {{registry}}/{{pkg}}:latest"
 
 # Build artifacts for every package
