@@ -77,6 +77,8 @@
 20260424_neil_armstrong_arm64_dts_qcom_sm8_456_50_add_missing_cx_power_domain_to_gcc.patch
 v9_20260729_qualcomm_crypto_qce_runtime_pm_interconnect.patch
 0504-wakeup-qcom-ipcc-remove-IRQF-NO-SUSPEND.patch
+0506-irqchip-qcom-ipcc-propagate-wake.patch
+0507-rpmsg-qcom-glink-smem-support-wake-irqs.patch
 0505-msm_gem-lock-before-put_iova_spaces.patch
 
 # ============== SM8550 deep suspend (ROCKNIX PR #2954) ==============

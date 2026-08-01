@@ -1,0 +1,77 @@
+From: gh123man <gh123man@users.noreply.github.com>
+Subject: [PATCH] rpmsg: qcom: glink-smem: support dedicated wake edges
+
+GLINK SMEM currently requests every transport interrupt with
+IRQF_NO_SUSPEND. On IPCC-backed systems this either allows arbitrary GLINK
+client callbacks while their devices are suspended, or requires disabling
+the shared IPCC summary interrupt and prevents selected transports from
+waking the application processor.
+
+Make the transport interrupts ordinary suspend-managed interrupts. When a
+GLINK edge is explicitly described as a wakeup source, register its existing
+interrupt as the device wake IRQ instead. The IRQ core can then leave only
+that edge armed, wake the system, and defer normal client handling until the
+orderly resume path.
+
+Signed-off-by: gh123man <gh123man@users.noreply.github.com>
+---
+ drivers/rpmsg/qcom_glink_smem.c | 23 ++++++++++++++++++++++--
+ 1 file changed, 22 insertions(+), 1 deletion(-)
+
+--- a/drivers/rpmsg/qcom_glink_smem.c
++++ b/drivers/rpmsg/qcom_glink_smem.c
+@@ -7,7 +7,8 @@
+ #include <linux/module.h>
+ #include <linux/of.h>
+ #include <linux/of_address.h>
+ #include <linux/of_irq.h>
++#include <linux/pm_wakeirq.h>
+ #include <linux/interrupt.h>
+ #include <linux/platform_device.h>
+ #include <linux/mailbox_client.h>
+@@ -306,7 +307,7 @@ struct qcom_glink_smem *qcom_glink_smem_register(struct device *parent,
+ 
+ 	smem->irq = of_irq_get(smem->dev.of_node, 0);
+ 	ret = devm_request_irq(&smem->dev, smem->irq, qcom_glink_smem_intr,
+-			       IRQF_NO_SUSPEND | IRQF_NO_AUTOEN,
++			       IRQF_NO_AUTOEN,
+ 			       "glink-smem", smem);
+ 	if (ret) {
+ 		dev_err(&smem->dev, "failed to request IRQ\n");
+@@ -348,8 +349,24 @@ struct qcom_glink_smem *qcom_glink_smem_register(struct device *parent,
+ 
+ 	enable_irq(smem->irq);
+ 
++	if (of_property_read_bool(dev->of_node, "wakeup-source")) {
++		ret = device_init_wakeup(dev, true);
++		if (ret)
++			goto err_disable_irq;
++
++		ret = dev_pm_set_wake_irq(dev, smem->irq);
++		if (ret) {
++			device_init_wakeup(dev, false);
++			goto err_disable_irq;
++		}
++	}
++
+ 	return smem;
+ 
++err_disable_irq:
++	disable_irq(smem->irq);
++	qcom_glink_native_remove(glink);
++
+ err_free_mbox:
+ 	mbox_free_channel(smem->mbox_chan);
+ 
+@@ -365,6 +382,11 @@ void qcom_glink_smem_unregister(struct qcom_glink_smem *smem)
+ 
+ 	disable_irq(smem->irq);
+ 
++	if (device_can_wakeup(&smem->dev)) {
++		dev_pm_clear_wake_irq(&smem->dev);
++		device_init_wakeup(&smem->dev, false);
++	}
++
+ 	qcom_glink_native_remove(glink);
+ 
+ 	mbox_free_channel(smem->mbox_chan);

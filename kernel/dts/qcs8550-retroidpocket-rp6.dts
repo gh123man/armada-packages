@@ -384,6 +384,11 @@
 	status = "okay";
 };
 
+/* Wake cleanly so the ADSP charger service can process a new USB-C attach. */
+&remoteproc_adsp_glink {
+	wakeup-source;
+};
+
 &spk_amp_l {
 	firmware-name = "qcom/sm8550/ayn/odin2/aw883xx_acf.bin";
 };

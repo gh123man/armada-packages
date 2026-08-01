@@ -229,6 +229,14 @@ no equivalent submission was found, or a permanent URL to the upstream submissio
   source: https://github.com/ROCKNIX/distribution/blob/bcf3b5bc574990b96543484575b06f912153a715/projects/ROCKNIX/devices/SM8750/patches/linux/0504-wakeup-qcom-ipcc-remove-IRQF-NO-SUSPEND.patch
   upstream: unknown
   notes: Armada limits ROCKNIX's suspend IRQ change to `qcom,sm8750-ipcc`, preserving the original flags on the SM8250 devices that also use suspend-to-RAM.
+- `patches/0506-irqchip-qcom-ipcc-propagate-wake.patch`
+  source: armada
+  upstream: local
+  notes: Propagates selected IPCC child wake configuration to the shared GIC parent. Validated on Retroid Pocket 6, where a charger attached during deep sleep wakes the AP through the selected ADSP GLINK edge.
+- `patches/0507-rpmsg-qcom-glink-smem-support-wake-irqs.patch`
+  source: armada
+  upstream: local
+  notes: Replaces unconditional GLINK `IRQF_NO_SUSPEND` with opt-in device-tree wake IRQs, deferring GLINK client handling until orderly resume instead of running callbacks against suspended devices.
 - `patches/0505-msm_gem-lock-before-put_iova_spaces.patch`
   source: https://github.com/ROCKNIX/distribution/blob/bcf3b5bc574990b96543484575b06f912153a715/projects/ROCKNIX/devices/SM8250/patches/linux/0505-msm_gem-lock-before-put_iova_spaces.patch
   upstream: unknown
