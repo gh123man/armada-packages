@@ -89,6 +89,7 @@ v9_20260729_qualcomm_crypto_qce_runtime_pm_interconnect.patch
 1008-scsi-ufs-qcom-auto-hibern8-clk-gating-collision.patch
 1009-scsi-ufs-recover-hibern8-enter-clk-gating.patch
 1010-scsi-ufs-qcom-keep-mphy-powered-on-hibern8-park.patch
+1011-scsi-ufs-hold-clk-gating-across-system-pm.patch
 1015-ufs-qcom-disable-rx-linecfg-after-link-startup.patch
 
 # ============== SM8550 DTSI prerequisites ==============

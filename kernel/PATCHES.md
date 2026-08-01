@@ -185,6 +185,10 @@ no equivalent submission was found, or a permanent URL to the upstream submissio
 - `patches/1010-scsi-ufs-qcom-keep-mphy-powered-on-hibern8-park.patch`
   source: https://github.com/ROCKNIX/distribution/blob/aa7d8320421bd44ec5b46b2d852b544fec237c54/projects/ROCKNIX/devices/SM8550/patches/linux/1010-scsi-ufs-qcom-keep-mphy-powered-on-hibern8-park.patch
   upstream: unknown
+- `patches/1011-scsi-ufs-hold-clk-gating-across-system-pm.patch`
+  source: armada
+  upstream: local
+  notes: Holds runtime clock gating from system-PM prepare through resume complete so an asynchronous idle Hibern8 command cannot overlap device suspend or resume.
 - `patches/1015-ufs-qcom-disable-rx-linecfg-after-link-startup.patch`
   source: https://github.com/ROCKNIX/distribution/blob/aa7d8320421bd44ec5b46b2d852b544fec237c54/projects/ROCKNIX/devices/SM8550/patches/linux/1015-ufs-qcom-disable-rx-linecfg-after-link-startup.patch
   upstream: unknown
