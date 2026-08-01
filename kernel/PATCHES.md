@@ -178,6 +178,10 @@ no equivalent submission was found, or a permanent URL to the upstream submissio
 - `patches/1008-scsi-ufs-qcom-auto-hibern8-clk-gating-collision.patch`
   source: https://github.com/ROCKNIX/distribution/blob/aa7d8320421bd44ec5b46b2d852b544fec237c54/projects/ROCKNIX/devices/SM8550/patches/linux/1008-scsi-ufs-qcom-auto-hibern8-clk-gating-collision.patch
   upstream: unknown
+- `patches/1009-scsi-ufs-recover-hibern8-enter-clk-gating.patch`
+  source: armada
+  upstream: local
+  notes: Recovers a timed-out software Hibern8 enter inline, then disables runtime UFS clock gating for the remainder of the boot so storage remains usable.
 - `patches/1010-scsi-ufs-qcom-keep-mphy-powered-on-hibern8-park.patch`
   source: https://github.com/ROCKNIX/distribution/blob/aa7d8320421bd44ec5b46b2d852b544fec237c54/projects/ROCKNIX/devices/SM8550/patches/linux/1010-scsi-ufs-qcom-keep-mphy-powered-on-hibern8-park.patch
   upstream: unknown
