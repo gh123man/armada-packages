@@ -1,4 +1,4 @@
-From: Armada OS <armada@localhost>
+From: gh123man <gh123man@users.noreply.github.com>
 Subject: [PATCH] scsi: ufs: recover clock-gating hibern8-enter failures inline
 
 ufshcd_gate_work() only restores the software clock-gating state to CLKS_ON
@@ -28,7 +28,7 @@ failure path.  This makes it possible to distinguish a controller failure
 from a race where system suspend requests clocks back on after the gate worker
 has passed its initial eligibility check.
 
-Signed-off-by: Armada OS <armada@localhost>
+Signed-off-by: gh123man <gh123man@users.noreply.github.com>
 ---
 --- a/drivers/ufs/core/ufshcd.c
 +++ b/drivers/ufs/core/ufshcd.c

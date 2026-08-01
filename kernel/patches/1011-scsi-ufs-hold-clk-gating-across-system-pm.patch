@@ -1,4 +1,4 @@
-From: Armada OS <armada@localhost>
+From: gh123man <gh123man@users.noreply.github.com>
 Subject: [PATCH] scsi: ufs: hold clock gating across system PM
 
 Hardware diagnostics captured a software clock-gating worker entering
@@ -23,7 +23,7 @@ asynchronous idle-gating Hibern8 path from starting inside the system-PM
 window.  Devices already runtime suspended in the desired system state
 need no extra hold and remain untouched.
 
-Signed-off-by: Armada OS <armada@localhost>
+Signed-off-by: gh123man <gh123man@users.noreply.github.com>
 ---
 --- a/drivers/ufs/core/ufshcd.c
 +++ b/drivers/ufs/core/ufshcd.c
