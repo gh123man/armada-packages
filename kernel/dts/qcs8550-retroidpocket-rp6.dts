@@ -384,7 +384,7 @@
 	status = "okay";
 };
 
-/* Wake cleanly so the ADSP charger service can process a new USB-C attach. */
+/* The ADSP owns Type-C and charging state through the PMIC GLINK service. */
 &remoteproc_adsp_glink {
 	wakeup-source;
 };

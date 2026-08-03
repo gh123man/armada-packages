@@ -232,7 +232,7 @@ no equivalent submission was found, or a permanent URL to the upstream submissio
 - `patches/0506-irqchip-qcom-ipcc-propagate-wake.patch`
   source: armada
   upstream: local
-  notes: Propagates selected IPCC child wake configuration to the shared GIC parent. Validated on Retroid Pocket 6, where a charger attached during deep sleep wakes the AP through the selected ADSP GLINK edge.
+  notes: Propagates selected IPCC child wake configuration to the shared GIC parent. Validated on Retroid Pocket 6; it mirrors Qualcomm Android's broad IPCC transport wake, with userspace filtering unrelated GLINK traffic before the graphical session is thawed.
 - `patches/0507-rpmsg-qcom-glink-smem-support-wake-irqs.patch`
   source: armada
   upstream: local
