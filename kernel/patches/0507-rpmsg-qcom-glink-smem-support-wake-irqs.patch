@@ -20,15 +20,10 @@ Signed-off-by: gh123man <gh123man@users.noreply.github.com>
 
 --- a/drivers/rpmsg/qcom_glink_smem.c
 +++ b/drivers/rpmsg/qcom_glink_smem.c
-@@ -7,7 +7,8 @@
- #include <linux/module.h>
- #include <linux/of.h>
- #include <linux/of_address.h>
+@@ -10,2 +10,3 @@
  #include <linux/of_irq.h>
 +#include <linux/pm_wakeirq.h>
  #include <linux/interrupt.h>
- #include <linux/platform_device.h>
- #include <linux/mailbox_client.h>
 @@ -306,7 +307,7 @@ struct qcom_glink_smem *qcom_glink_smem_register(struct device *parent,
  
  	smem->irq = of_irq_get(smem->dev.of_node, 0);

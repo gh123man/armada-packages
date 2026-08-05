@@ -146,7 +146,7 @@ Signed-off-by: jaewun <jaewun@users.noreply.github.com>
  		if (ufs_qcom_cfg_timers(hba, false, ULONG_MAX)) {
  			dev_err(hba->dev, "%s: ufs_qcom_cfg_timers() failed\n",
  				__func__);
-@@ -738,5 +746,11 @@ static int ufs_qcom_link_startup_notify(struct ufs_hba *hba,
+@@ -739,6 +746,12 @@ static int ufs_qcom_link_startup_notify(struct ufs_hba *hba,
  		err = ufshcd_disable_host_tx_lcc(hba);
  
  		break;
@@ -158,3 +158,4 @@ Signed-off-by: jaewun <jaewun@users.noreply.github.com>
 +		break;
  	default:
  		break;
+ 	}

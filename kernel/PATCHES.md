@@ -192,9 +192,6 @@ no equivalent submission was found, or a permanent URL to the upstream submissio
 - `patches/1015-ufs-qcom-disable-rx-linecfg-after-link-startup.patch`
   source: https://github.com/ROCKNIX/distribution/blob/aa7d8320421bd44ec5b46b2d852b544fec237c54/projects/ROCKNIX/devices/SM8550/patches/linux/1015-ufs-qcom-disable-rx-linecfg-after-link-startup.patch
   upstream: unknown
-- `patches/1016-pci-qcom-set-max-opp-before-dbi-resume.patch`
-  source: https://github.com/torvalds/linux/commit/5dc31cd4a91a7f006d23efa97a5594a7e3ac7790
-  upstream: https://github.com/torvalds/linux/commit/5dc31cd4a91a7f006d23efa97a5594a7e3ac7790
 - `patches/1017-pci-host-common-add-d3cold-possible.patch`
   source: https://github.com/thorch-os/thorch/blob/45dfb981aeed5e3758b85a5b8e933d994da96dec/packages/linux-thorch/patches/0210-PCI-host-common-add-d3cold-eligibility-helper.patch
   upstream: unknown

@@ -21,14 +21,16 @@ Signed-off-by: jaewun <jaewun@users.noreply.github.com>
 diff --git a/drivers/ufs/host/ufs-qcom.c b/drivers/ufs/host/ufs-qcom.c
 --- a/drivers/ufs/host/ufs-qcom.c
 +++ b/drivers/ufs/host/ufs-qcom.c
-@@ -1779,8 +1779,8 @@
+@@ -1983,10 +1983,10 @@
  		}
-
+ 
  		ufs_qcom_icc_update_bw(host);
 -		ufshcd_uic_hibern8_exit(hba);
 +		err = ufshcd_uic_hibern8_exit(hba);
  	}
-
+ 
 -	return 0;
 +	return err;
  }
+ 
+ static void ufs_qcom_enable_test_bus(struct ufs_qcom_host *host)
