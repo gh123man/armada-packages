@@ -192,6 +192,41 @@ no equivalent submission was found, or a permanent URL to the upstream submissio
 - `patches/1015-ufs-qcom-disable-rx-linecfg-after-link-startup.patch`
   source: https://github.com/ROCKNIX/distribution/blob/aa7d8320421bd44ec5b46b2d852b544fec237c54/projects/ROCKNIX/devices/SM8550/patches/linux/1015-ufs-qcom-disable-rx-linecfg-after-link-startup.patch
   upstream: unknown
+- `patches/1016-pci-qcom-set-max-opp-before-dbi-resume.patch`
+  source: https://github.com/torvalds/linux/commit/5dc31cd4a91a7f006d23efa97a5594a7e3ac7790
+  upstream: https://github.com/torvalds/linux/commit/5dc31cd4a91a7f006d23efa97a5594a7e3ac7790
+- `patches/1017-pci-host-common-add-d3cold-possible.patch`
+  source: https://github.com/thorch-os/thorch/blob/45dfb981aeed5e3758b85a5b8e933d994da96dec/packages/linux-thorch/patches/0210-PCI-host-common-add-d3cold-eligibility-helper.patch
+  upstream: unknown
+  notes: Uses the hardware-validated endpoint-only eligibility semantics so an unbound host root port under `pcie_ports=compat` cannot block D3cold.
+- `patches/1018-pci-qcom-add-get-ltssm.patch`
+  source: https://github.com/torvalds/linux/commit/131a93dbcb9546683384e31dc4057d4aaf38fa21
+  upstream: https://github.com/torvalds/linux/commit/131a93dbcb9546683384e31dc4057d4aaf38fa21
+- `patches/1019-pci-qcom-power-down-phy.patch`
+  source: https://github.com/torvalds/linux/commit/8a847d3e9e5f1700beb5a0196e682f71837dfe5c
+  upstream: https://github.com/torvalds/linux/commit/8a847d3e9e5f1700beb5a0196e682f71837dfe5c
+- `patches/1020-pci-dwc-use-common-d3cold-helper.patch`
+  source: https://github.com/torvalds/linux/commit/56378c03c1a80aeeab45f39b303cc92a3bb7716e
+  upstream: https://github.com/torvalds/linux/commit/56378c03c1a80aeeab45f39b303cc92a3bb7716e
+- `patches/1021-pci-qcom-add-d3cold-support.patch`
+  source: https://github.com/torvalds/linux/commit/2cc0e7454c7891345f92e96b2f812b808be7fbdb
+  upstream: https://github.com/torvalds/linux/commit/2cc0e7454c7891345f92e96b2f812b808be7fbdb
+- `patches/1023-pci-qcom-skip-l23-ready-after-pme-sm8550.patch`
+  source: https://github.com/thorch-os/thorch/blob/45dfb981aeed5e3758b85a5b8e933d994da96dec/packages/linux-thorch/patches/0215-PCI-qcom-skip-l23-ready-after-pme-sm8550.patch
+  upstream: unknown
+- `patches/1024-regulator-qcom-rpmh-add-suspend-state-support.patch`
+  source: https://github.com/thorch-os/thorch/blob/45dfb981aeed5e3758b85a5b8e933d994da96dec/packages/linux-thorch/patches/0218-regulator-qcom-rpmh-add-suspend-state-support.patch
+  upstream: unknown
+- `patches/1025-regulator-core-apply-mem-state-for-s2idle.patch`
+  source: https://github.com/thorch-os/thorch/blob/45dfb981aeed5e3758b85a5b8e933d994da96dec/packages/linux-thorch/patches/0219-regulator-core-apply-mem-state-for-s2idle.patch
+  upstream: unknown
+- `patches/1026-pci-qcom-use-suspend-opp-for-non-s2ram.patch`
+  source: https://github.com/thorch-os/thorch/blob/45dfb981aeed5e3758b85a5b8e933d994da96dec/packages/linux-thorch/patches/0220-PCI-qcom-use-suspend-opp-for-non-s2ram.patch
+  upstream: unknown
+- `patches/1027-arm64-dts-qcom-sm8550-mark-pcie-suspend-opp.patch`
+  source: https://github.com/thorch-os/thorch/blob/45dfb981aeed5e3758b85a5b8e933d994da96dec/packages/linux-thorch/patches/0221-arm64-dts-qcom-sm8550-mark-pcie-suspend-opp.patch
+  upstream: unknown
+  notes: Retains the RP6-validated 5 MB/s DDR/LLCC wake contract during s2idle without changing any active-link OPP.
 - `patches/1300-input-rsinput-axis-deadzone.patch`
   source: armada
   upstream: local
@@ -536,7 +571,7 @@ no equivalent submission was found, or a permanent URL to the upstream submissio
   notes: Armada applies this local patch after copying `dts/qcs8550-ayaneo-pocketds.dts`.
 - `dts/qcs8550-ayn-common.dtsi.patch`
   source: armada
-  notes: Armada removes the SDHCI capability mask and marks the shared RSInput node as connected to the PM8550B haptics device declared in the same common tree. This intentionally covers the AYN and Retroid products that inherit both nodes, including Pocket 6 and Nova.
+  notes: Armada removes the SDHCI capability mask, enables the shared haptics bridge, and includes Thorch's RP6-validated regulator sleep states and active-low WLAN WAKE# polarity. This covers the AYN and Retroid products that inherit the common tree, including Pocket 6 and Nova.
 - `dts/qcs8550-retroidpocket-rp6.dts.patch`
   source: armada
   notes: Armada switches Pocket 6 from ROCKNIX's Odin 2 fallback to audio firmware extracted from a Pocket 6 vendor image.

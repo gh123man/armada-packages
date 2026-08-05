@@ -93,6 +93,17 @@ v9_20260729_qualcomm_crypto_qce_runtime_pm_interconnect.patch
 1010-scsi-ufs-qcom-keep-mphy-powered-on-hibern8-park.patch
 1011-scsi-ufs-hold-clk-gating-across-system-pm.patch
 1015-ufs-qcom-disable-rx-linecfg-after-link-startup.patch
+1016-pci-qcom-set-max-opp-before-dbi-resume.patch
+1017-pci-host-common-add-d3cold-possible.patch
+1018-pci-qcom-add-get-ltssm.patch
+1019-pci-qcom-power-down-phy.patch
+1020-pci-dwc-use-common-d3cold-helper.patch
+1021-pci-qcom-add-d3cold-support.patch
+1023-pci-qcom-skip-l23-ready-after-pme-sm8550.patch
+1024-regulator-qcom-rpmh-add-suspend-state-support.patch
+1025-regulator-core-apply-mem-state-for-s2idle.patch
+1026-pci-qcom-use-suspend-opp-for-non-s2ram.patch
+1027-arm64-dts-qcom-sm8550-mark-pcie-suspend-opp.patch
 
 # ============== SM8550 DTSI prerequisites ==============
 0001-pcie-update-sm8550-dtsi.patch
