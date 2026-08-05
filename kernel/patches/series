@@ -46,7 +46,7 @@
 0069-input-misc-add-konkr-sysbtn-MCU-system-buttons.patch
 0031_input--Add-driver-for-RSInput-Gamepad.patch
 0006-hid-playstation-expose-DualSense-Edge-Fn-and-back-paddles.patch
-0508-input-rsinput-add-pm-resume-to-reinit-mcu-after-suspend.patch
+1004-input-rsinput-suspend-resume-gamepad-mcu.patch
 0504-Enable-64-bit-processes-to-use-compat-input-syscalls.patch
 0506-usbcore-add-interrupt-interval-override.patch
 
@@ -78,7 +78,31 @@
 20260424_neil_armstrong_arm64_dts_qcom_sm8_456_50_add_missing_cx_power_domain_to_gcc.patch
 v9_20260729_qualcomm_crypto_qce_runtime_pm_interconnect.patch
 0504-wakeup-qcom-ipcc-remove-IRQF-NO-SUSPEND.patch
+0506-irqchip-qcom-ipcc-propagate-wake.patch
+0507-rpmsg-qcom-glink-smem-support-wake-irqs.patch
 0505-msm_gem-lock-before-put_iova_spaces.patch
+
+# ============== SM8550 deep suspend (ROCKNIX PR #2954) ==============
+0201-scsi-ufs-drain-relink-completions-out-of-band-pm.patch
+0203-thermal-qcom-tsens-skip-sm8550-uplow-wake-irq.patch
+0207-scsi-ufs-qcom-balance-irq-on-host-reset-error.patch
+1006-tty-serial-qcom-geni-mask-non-console-irq-on-suspend.patch
+1007-scsi-ufs-qcom-propagate-hibern8-exit-failure-clk-scale.patch
+1008-scsi-ufs-qcom-auto-hibern8-clk-gating-collision.patch
+1009-scsi-ufs-recover-hibern8-enter-clk-gating.patch
+1010-scsi-ufs-qcom-keep-mphy-powered-on-hibern8-park.patch
+1011-scsi-ufs-hold-clk-gating-across-system-pm.patch
+1015-ufs-qcom-disable-rx-linecfg-after-link-startup.patch
+1017-pci-host-common-add-d3cold-possible.patch
+1018-pci-qcom-add-get-ltssm.patch
+1019-pci-qcom-power-down-phy.patch
+1020-pci-dwc-use-common-d3cold-helper.patch
+1021-pci-qcom-add-d3cold-support.patch
+1023-pci-qcom-skip-l23-ready-after-pme-sm8550.patch
+1024-regulator-qcom-rpmh-add-suspend-state-support.patch
+1025-regulator-core-apply-mem-state-for-s2idle.patch
+1026-pci-qcom-use-suspend-opp-for-non-s2ram.patch
+1027-arm64-dts-qcom-sm8550-mark-pcie-suspend-opp.patch
 
 # ============== SM8550 DTSI prerequisites ==============
 0001-pcie-update-sm8550-dtsi.patch

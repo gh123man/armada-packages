@@ -1,0 +1,39 @@
+From: gh123man <gh123man@users.noreply.github.com>
+Subject: [PATCH] mailbox: qcom-ipcc: propagate child wake configuration
+
+IPCC child interrupts currently advertise IRQCHIP_SKIP_SET_WAKE, so a client
+cannot arm the GIC summary interrupt as a wake source. This forces GLINK
+transports to rely on IRQF_NO_SUSPEND and allows callbacks to run against
+already-suspended devices.
+
+Propagate wake configuration from an IPCC child to the shared parent IRQ.
+The interrupt core masks non-wakeup children during suspend, while the GIC
+summary remains armed as long as at least one child needs it.
+
+Signed-off-by: gh123man <gh123man@users.noreply.github.com>
+---
+ drivers/mailbox/qcom-ipcc.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
+
+--- a/drivers/mailbox/qcom-ipcc.c
++++ b/drivers/mailbox/qcom-ipcc.c
+@@ -107,11 +107,18 @@ static void qcom_ipcc_unmask_irq(struct irq_data *irqd)
+ 	writel(hwirq, ipcc->base + IPCC_REG_RECV_SIGNAL_ENABLE);
+ }
+ 
++static int qcom_ipcc_set_wake(struct irq_data *irqd, unsigned int on)
++{
++	struct qcom_ipcc *ipcc = irq_data_get_irq_chip_data(irqd);
++
++	return irq_set_irq_wake(ipcc->irq, on);
++}
++
+ static struct irq_chip qcom_ipcc_irq_chip = {
+ 	.name = "ipcc",
+ 	.irq_mask = qcom_ipcc_mask_irq,
+ 	.irq_unmask = qcom_ipcc_unmask_irq,
+-	.flags = IRQCHIP_SKIP_SET_WAKE,
++	.irq_set_wake = qcom_ipcc_set_wake,
+ };
+ 
+ static int qcom_ipcc_domain_map(struct irq_domain *d, unsigned int irq,

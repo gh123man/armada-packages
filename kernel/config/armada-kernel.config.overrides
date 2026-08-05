@@ -201,6 +201,11 @@ CONFIG_KPROBES=y
 CONFIG_KPROBE_EVENTS=y
 CONFIG_PERF_EVENTS=y
 CONFIG_BPF_EVENTS=y
+# Exposes /sys/power/pm_wakeup_irq for the Armada suspend wake policy. These
+# options add PM diagnostic controls; they do not enable a debug build or force
+# verbose PM logging (pm_debug_messages and pm_print_times remain off).
+CONFIG_PM_DEBUG=y
+CONFIG_PM_SLEEP_DEBUG=y
 CONFIG_NTSYNC=y                              # Proton NT sync; off in arm64 defconfig
 CONFIG_LRU_GEN=y
 CONFIG_LRU_GEN_ENABLED=y                     # bare LRU_GEN only builds MGLRU, this enables it

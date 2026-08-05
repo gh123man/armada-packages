@@ -3,9 +3,7 @@ Subject: [PATCH] arm64: dts: qcom: rp6: use device-specific audio firmware
 
 --- a/arch/arm64/boot/dts/qcom/qcs8550-retroidpocket-rp6.dts
 +++ b/arch/arm64/boot/dts/qcom/qcs8550-retroidpocket-rp6.dts
-@@ -379,15 +379,15 @@
- };
- 
+@@ -381,5 +381,5 @@
  &remoteproc_adsp {
 -	firmware-name = "qcom/sm8550/ayn/odin2/adsp.mbn",
 -			"qcom/sm8550/ayn/odin2/adsp_dtb.mbn";
@@ -13,7 +11,7 @@ Subject: [PATCH] arm64: dts: qcom: rp6: use device-specific audio firmware
 +			"qcom/sm8550/retroidpocket/rp6/adsp_dtb.mbn";
  	status = "okay";
  };
- 
+@@ -392,7 +392,7 @@
  &spk_amp_l {
 -	firmware-name = "qcom/sm8550/ayn/odin2/aw883xx_acf.bin";
 +	firmware-name = "qcom/sm8550/retroidpocket/rp6/aw883xx_acf.bin";

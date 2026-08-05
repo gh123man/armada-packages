@@ -136,9 +136,6 @@ no equivalent submission was found, or a permanent URL to the upstream submissio
   source: https://github.com/ROCKNIX/distribution/blob/bcf3b5bc574990b96543484575b06f912153a715/projects/ROCKNIX/packages/linux/patches/mainline/0006-hid-playstation-expose-DualSense-Edge-Fn-and-back-paddles.patch
   upstream: https://lore.kernel.org/r/20260407044008.40222-1-awebster@gmail.com
   notes: Armada refreshed only the hunk context for Linux 7.1; DualSense Edge button behavior is unchanged.
-- `patches/0508-input-rsinput-add-pm-resume-to-reinit-mcu-after-suspend.patch`
-  source: https://github.com/ROCKNIX/distribution/blob/bcf3b5bc574990b96543484575b06f912153a715/projects/ROCKNIX/devices/SM8750/patches/linux/0508-input-rsinput-add-pm-resume-to-reinit-mcu-after-suspend.patch
-  upstream: unknown
 - `patches/0504-Enable-64-bit-processes-to-use-compat-input-syscalls.patch`
   source: https://github.com/ROCKNIX/distribution/blob/bcf3b5bc574990b96543484575b06f912153a715/projects/ROCKNIX/devices/SM8250/patches/linux/0504-Enable-64-bit-processes-to-use-compat-input-syscalls.patch
   upstream: unknown
@@ -168,6 +165,65 @@ no equivalent submission was found, or a permanent URL to the upstream submissio
   source: armada
   upstream: local
   notes: The imported bridge called the haptics driver's sleeping upload, playback, and erase callbacks under spin_lock_irq, which emitted "BUG: scheduling while atomic" on every rumble stop and intermittently hard-locked the Odin 3 (reproduced on hardware). The bridge now serializes with a mutex and is process-context only, RSInput defers its atomic playback callback to a work item, and the haptics suspend path cancels the pending stop and set-gain workers so they cannot fire into resume. ROCKNIX carries the identical bug as of 2026-08-04; worth upstreaming once soak-tested.
+- `patches/1004-input-rsinput-suspend-resume-gamepad-mcu.patch`
+  source: https://github.com/ROCKNIX/distribution/blob/aa7d8320421bd44ec5b46b2d852b544fec237c54/projects/ROCKNIX/devices/SM8550/patches/linux/1004-input-rsinput-suspend-resume-gamepad-mcu.patch
+  upstream: unknown
+  notes: Supersedes the resume-only SM8750 patch previously carried as `0508`.
+- `patches/1006-tty-serial-qcom-geni-mask-non-console-irq-on-suspend.patch`
+  source: https://github.com/ROCKNIX/distribution/blob/aa7d8320421bd44ec5b46b2d852b544fec237c54/projects/ROCKNIX/devices/SM8550/patches/linux/1006-tty-serial-qcom-geni-mask-non-console-irq-on-suspend.patch
+  upstream: unknown
+- `patches/1007-scsi-ufs-qcom-propagate-hibern8-exit-failure-clk-scale.patch`
+  source: https://github.com/ROCKNIX/distribution/blob/aa7d8320421bd44ec5b46b2d852b544fec237c54/projects/ROCKNIX/devices/SM8550/patches/linux/1007-scsi-ufs-qcom-propagate-hibern8-exit-failure-clk-scale.patch
+  upstream: unknown
+- `patches/1008-scsi-ufs-qcom-auto-hibern8-clk-gating-collision.patch`
+  source: https://github.com/ROCKNIX/distribution/blob/aa7d8320421bd44ec5b46b2d852b544fec237c54/projects/ROCKNIX/devices/SM8550/patches/linux/1008-scsi-ufs-qcom-auto-hibern8-clk-gating-collision.patch
+  upstream: unknown
+- `patches/1009-scsi-ufs-recover-hibern8-enter-clk-gating.patch`
+  source: armada
+  upstream: local
+  notes: Recovers a timed-out software Hibern8 enter inline, then disables runtime UFS clock gating for the remainder of the boot so storage remains usable.
+- `patches/1010-scsi-ufs-qcom-keep-mphy-powered-on-hibern8-park.patch`
+  source: https://github.com/ROCKNIX/distribution/blob/aa7d8320421bd44ec5b46b2d852b544fec237c54/projects/ROCKNIX/devices/SM8550/patches/linux/1010-scsi-ufs-qcom-keep-mphy-powered-on-hibern8-park.patch
+  upstream: unknown
+- `patches/1011-scsi-ufs-hold-clk-gating-across-system-pm.patch`
+  source: armada
+  upstream: local
+  notes: Holds runtime clock gating from system-PM prepare through resume complete so an asynchronous idle Hibern8 command cannot overlap device suspend or resume.
+- `patches/1015-ufs-qcom-disable-rx-linecfg-after-link-startup.patch`
+  source: https://github.com/ROCKNIX/distribution/blob/aa7d8320421bd44ec5b46b2d852b544fec237c54/projects/ROCKNIX/devices/SM8550/patches/linux/1015-ufs-qcom-disable-rx-linecfg-after-link-startup.patch
+  upstream: unknown
+- `patches/1017-pci-host-common-add-d3cold-possible.patch`
+  source: https://github.com/thorch-os/thorch/blob/45dfb981aeed5e3758b85a5b8e933d994da96dec/packages/linux-thorch/patches/0210-PCI-host-common-add-d3cold-eligibility-helper.patch
+  upstream: unknown
+  notes: Uses the hardware-validated endpoint-only eligibility semantics so an unbound host root port under `pcie_ports=compat` cannot block D3cold.
+- `patches/1018-pci-qcom-add-get-ltssm.patch`
+  source: https://github.com/torvalds/linux/commit/131a93dbcb9546683384e31dc4057d4aaf38fa21
+  upstream: https://github.com/torvalds/linux/commit/131a93dbcb9546683384e31dc4057d4aaf38fa21
+- `patches/1019-pci-qcom-power-down-phy.patch`
+  source: https://github.com/torvalds/linux/commit/8a847d3e9e5f1700beb5a0196e682f71837dfe5c
+  upstream: https://github.com/torvalds/linux/commit/8a847d3e9e5f1700beb5a0196e682f71837dfe5c
+- `patches/1020-pci-dwc-use-common-d3cold-helper.patch`
+  source: https://github.com/torvalds/linux/commit/56378c03c1a80aeeab45f39b303cc92a3bb7716e
+  upstream: https://github.com/torvalds/linux/commit/56378c03c1a80aeeab45f39b303cc92a3bb7716e
+- `patches/1021-pci-qcom-add-d3cold-support.patch`
+  source: https://github.com/torvalds/linux/commit/2cc0e7454c7891345f92e96b2f812b808be7fbdb
+  upstream: https://github.com/torvalds/linux/commit/2cc0e7454c7891345f92e96b2f812b808be7fbdb
+- `patches/1023-pci-qcom-skip-l23-ready-after-pme-sm8550.patch`
+  source: https://github.com/thorch-os/thorch/blob/45dfb981aeed5e3758b85a5b8e933d994da96dec/packages/linux-thorch/patches/0215-PCI-qcom-skip-l23-ready-after-pme-sm8550.patch
+  upstream: unknown
+- `patches/1024-regulator-qcom-rpmh-add-suspend-state-support.patch`
+  source: https://github.com/thorch-os/thorch/blob/45dfb981aeed5e3758b85a5b8e933d994da96dec/packages/linux-thorch/patches/0218-regulator-qcom-rpmh-add-suspend-state-support.patch
+  upstream: unknown
+- `patches/1025-regulator-core-apply-mem-state-for-s2idle.patch`
+  source: https://github.com/thorch-os/thorch/blob/45dfb981aeed5e3758b85a5b8e933d994da96dec/packages/linux-thorch/patches/0219-regulator-core-apply-mem-state-for-s2idle.patch
+  upstream: unknown
+- `patches/1026-pci-qcom-use-suspend-opp-for-non-s2ram.patch`
+  source: https://github.com/thorch-os/thorch/blob/45dfb981aeed5e3758b85a5b8e933d994da96dec/packages/linux-thorch/patches/0220-PCI-qcom-use-suspend-opp-for-non-s2ram.patch
+  upstream: unknown
+- `patches/1027-arm64-dts-qcom-sm8550-mark-pcie-suspend-opp.patch`
+  source: https://github.com/thorch-os/thorch/blob/45dfb981aeed5e3758b85a5b8e933d994da96dec/packages/linux-thorch/patches/0221-arm64-dts-qcom-sm8550-mark-pcie-suspend-opp.patch
+  upstream: unknown
+  notes: Retains the RP6-validated 5 MB/s DDR/LLCC wake contract during s2idle without changing any active-link OPP.
 - `patches/1300-input-rsinput-axis-deadzone.patch`
   source: armada
   upstream: local
@@ -205,6 +261,14 @@ no equivalent submission was found, or a permanent URL to the upstream submissio
   source: https://github.com/ROCKNIX/distribution/blob/bcf3b5bc574990b96543484575b06f912153a715/projects/ROCKNIX/devices/SM8750/patches/linux/0504-wakeup-qcom-ipcc-remove-IRQF-NO-SUSPEND.patch
   upstream: unknown
   notes: Armada limits ROCKNIX's suspend IRQ change to `qcom,sm8750-ipcc`, preserving the original flags on the SM8250 devices that also use suspend-to-RAM.
+- `patches/0506-irqchip-qcom-ipcc-propagate-wake.patch`
+  source: armada
+  upstream: local
+  notes: Propagates selected IPCC child wake configuration to the shared GIC parent. Validated on Retroid Pocket 6; it mirrors Qualcomm Android's broad IPCC transport wake, with userspace filtering unrelated GLINK traffic before the graphical session is thawed.
+- `patches/0507-rpmsg-qcom-glink-smem-support-wake-irqs.patch`
+  source: armada
+  upstream: local
+  notes: Replaces unconditional GLINK `IRQF_NO_SUSPEND` with opt-in device-tree wake IRQs, deferring GLINK client handling until orderly resume instead of running callbacks against suspended devices.
 - `patches/0505-msm_gem-lock-before-put_iova_spaces.patch`
   source: https://github.com/ROCKNIX/distribution/blob/bcf3b5bc574990b96543484575b06f912153a715/projects/ROCKNIX/devices/SM8250/patches/linux/0505-msm_gem-lock-before-put_iova_spaces.patch
   upstream: unknown
@@ -228,6 +292,16 @@ no equivalent submission was found, or a permanent URL to the upstream submissio
   upstream: unknown
 - `patches/0200-ASoC-wcd938x-add-DMIC-DAPM-inputs.patch`
   source: https://github.com/ROCKNIX/distribution/blob/bcf3b5bc574990b96543484575b06f912153a715/projects/ROCKNIX/devices/SM8550/patches/linux/0200-ASoC-wcd938x-add-DMIC-DAPM-inputs.patch
+  upstream: unknown
+- `patches/0201-scsi-ufs-drain-relink-completions-out-of-band-pm.patch`
+  source: https://github.com/ROCKNIX/distribution/blob/aa7d8320421bd44ec5b46b2d852b544fec237c54/projects/ROCKNIX/devices/SM8550/patches/linux/0201-scsi-ufs-drain-relink-completions-out-of-band-pm.patch
+  upstream: unknown
+  notes: Armada carries ROCKNIX's out-of-band completion drain for system PM.
+- `patches/0203-thermal-qcom-tsens-skip-sm8550-uplow-wake-irq.patch`
+  source: https://github.com/ROCKNIX/distribution/blob/aa7d8320421bd44ec5b46b2d852b544fec237c54/projects/ROCKNIX/devices/SM8550/patches/linux/0203-thermal-qcom-tsens-skip-sm8550-uplow-wake-irq.patch
+  upstream: unknown
+- `patches/0207-scsi-ufs-qcom-balance-irq-on-host-reset-error.patch`
+  source: https://github.com/ROCKNIX/distribution/blob/aa7d8320421bd44ec5b46b2d852b544fec237c54/projects/ROCKNIX/devices/SM8550/patches/linux/0207-scsi-ufs-qcom-balance-irq-on-host-reset-error.patch
   upstream: unknown
 - `patches/0500-ROCKNIX-set-boot-fanspeed.patch`
   source: https://github.com/ROCKNIX/distribution/blob/bcf3b5bc574990b96543484575b06f912153a715/projects/ROCKNIX/devices/SM8550/patches/linux/0500-ROCKNIX-set-boot-fanspeed.patch
@@ -494,7 +568,7 @@ no equivalent submission was found, or a permanent URL to the upstream submissio
   notes: Armada applies this local patch after copying `dts/qcs8550-ayaneo-pocketds.dts`.
 - `dts/qcs8550-ayn-common.dtsi.patch`
   source: armada
-  notes: Armada removes the SDHCI capability mask and marks the shared RSInput node as connected to the PM8550B haptics device declared in the same common tree. This intentionally covers the AYN and Retroid products that inherit both nodes, including Pocket 6 and Nova.
+  notes: Armada removes the SDHCI capability mask, enables the shared haptics bridge, and includes Thorch's RP6-validated regulator sleep states and active-low WLAN WAKE# polarity. This covers the AYN and Retroid products that inherit the common tree, including Pocket 6 and Nova.
 - `dts/qcs8550-retroidpocket-rp6.dts.patch`
   source: armada
   notes: Armada switches Pocket 6 from ROCKNIX's Odin 2 fallback to audio firmware extracted from a Pocket 6 vendor image.
